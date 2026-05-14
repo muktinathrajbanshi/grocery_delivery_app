@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { heroSectionData } from "../assets/assets"
 import { Link } from "react-router-dom"
-import { BikeIcon, LockIcon, MailIcon, UserIcon } from "lucide-react"
+import { BikeIcon, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react"
 
 const Login = () => {
 
@@ -103,9 +103,14 @@ const Login = () => {
                     not-focus:border-app-border transition-all" />
                 </div>
                 </label>
-
+              <button type="submit" disabled={loading} className="flex-center w-full py-3 bg-green-950 text-white
+              font-semibold rounded-xl hover:bg-green-900 transition-colors disabled:opacity-50">
+                {loading 
+                ? <Loader2Icon className="animate-spin" />
+                : isLoginState ? "Sign In" : "Sign Up"
+                  }
+              </button>
             </form>
-
         </div>
       </div>
     </div>
