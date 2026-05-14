@@ -41,8 +41,18 @@ const Login = () => {
                   <BikeIcon className="size-8 text-app-green" />
                   <span className="text-2xl font-semibold text-app-green">Instacart</span>
                 </Link>
-                <h1></h1>
-                <p></p>
+                <h1 className="text-2xl font-semibold text-app-green mb-2">
+                  {isLoginState ? "Sign in to your account" : "Sign up for an account"}
+                </h1>
+
+                <p className="text-sm text-app-text-light">
+                  {isLoginState ? "Don't have an account?" : "Already have an account?"} 
+                  <button onClick={() => setIsLoginState(!isLoginState)}
+                    className="text-orange-500 ml-1 font-semibold hover:text-orange-600 transition-colors">
+                    {isLoginState ? "Create one" : "Sign in"}
+                  </button>
+                </p>
+
               </div>
 
             {/* Login / Register Form  */}
