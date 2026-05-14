@@ -1,9 +1,10 @@
 
 const AppLayout = () => {
   return (
-    <div>
-      AppLayout
-    </div>
+    <>
+      <p>banner</p>
+      <p>navbar</p>
+    </>
   )
 }
 
