@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { MinusIcon, ShoppingBagIcon, X } from "lucide-react";
+import { MinusIcon, PlusIcon, ShoppingBagIcon, X } from "lucide-react";
 
 const CartSidebar = () => {
  
@@ -59,12 +59,24 @@ const CartSidebar = () => {
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-1.5">
                           <button 
+                          onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
                           className="size-7 rounded-lg bg-white border 
                           border-app-border flex-center">
                             <MinusIcon className="size-3" />
                           </button>
+                          <span>{item.quantity}</span>
+                          <button 
+                          onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                          className="size-7 rounded-lg bg-white border 
+                          border-app-border flex-center">
+                            <PlusIcon className="size-3" />
+                          </button>
                         </div>
-                        <div></div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold">
+                            {currency}{(item.product.price * item.quantity).toFixed(2)}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
