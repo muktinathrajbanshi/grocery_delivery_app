@@ -23,7 +23,7 @@ export function CartProvider({children} : {children : ReactNode}) {
         return saved ? JSON.parse(saved) : []
     })
 
-    const [isCartOpen, setIsCartOpen] = useState(false)
+    const [isCartOpen, setIsCartOpen] = useState(true)
 
     useEffect(() => {
         localStorage.setItem("app_cart", JSON.stringify(items))
@@ -42,7 +42,36 @@ export function CartProvider({children} : {children : ReactNode}) {
         setIsCartOpen(true)
     }
 
-    return <CartContext.Provider value={{}}>
+    const removeFromCart = (productId: string) => {
+        setItems((prev) => prev.filter((item) => item.product._id !== productId));
+    }
+
+    const updateQuantity = (productId: string, quantity: number) => {
+        if(quantity <= 0) {
+            removeFromCart(productId);
+            return;
+        }
+        setItems((prev) => prev.map((item) => (item.product._id === productId ? {
+            ...item, quantity} : item)))
+    }
+
+    const clearCart = () => {
+        setItems([])
+        setIsCartOpen(false)
+    }
+
+    const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
+    const cartTotal = items.reduce((sum, item) => sum + item.product.price + item.quantity, 0)
+
+
+    return <CartContext.Provider value={{
+        items,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        cartCount, cartTotal, isCartOpen, setIsCartOpen
+    }}>
         {children}
     </CartContext.Provider>
 }
