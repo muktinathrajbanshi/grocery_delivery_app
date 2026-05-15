@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { CartItem, Product } from "../types";
 
 interface CartContextType {
@@ -22,6 +22,25 @@ export function CartProvider({children} : {children : ReactNode}) {
         const saved = localStorage.getItem("app_cart")
         return saved ? JSON.parse(saved) : []
     })
+
+    const [isCartOpen, setIsCartOpen] = useState(false)
+
+    useEffect(() => {
+        localStorage.setItem("app_cart", JSON.stringify(items))
+    }, [items])
+
+    const addToCart = (product: Product, quantity = 1) => {
+        setItems((prev) => {
+            const existing = prev.find((item) => item.product._id === product._id)
+            if(existing) {
+                return prev.map((item) => (item.product._id === product._id ? {
+                    ...item,
+                    quantity: item.quantity + quantity} : item))
+            }
+            return [...prev, {product, quantity}]
+        })
+        setIsCartOpen(true)
+    }
 
     return <CartContext.Provider value={{}}>
         {children}
