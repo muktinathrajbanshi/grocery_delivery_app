@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { MinusIcon, PlusIcon, ShoppingBagIcon, X } from "lucide-react";
+import { MinusIcon, PlusIcon, ShoppingBagIcon, Trash2Icon, X } from "lucide-react";
 
 const CartSidebar = () => {
  
@@ -76,6 +76,12 @@ const CartSidebar = () => {
                           <span className="text-sm font-semibold">
                             {currency}{(item.product.price * item.quantity).toFixed(2)}
                           </span>
+                          <button 
+                          onClick={() => removeFromCart(item.product._id)}
+                          className="p-1 text-app-text-light
+                          hover:text-app-error transition-colors">
+                            <Trash2Icon className="size-4" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -83,6 +89,15 @@ const CartSidebar = () => {
                 ))
               )}
             </div>
+            {/* Footer  */}
+            {items.length > 0 && (
+              <div className="p-5 border-t border-app-border space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-app-text-light">Subtotal</span>
+                  <span className="font-medium">{currency}{cartTotal.toFixed(2)}</span>
+                </div>
+              </div>
+            )}
         </div>
     </>
     
