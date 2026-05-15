@@ -1,4 +1,4 @@
-import { TruckIcon, X } from "lucide-react";
+import { TruckIcon, X, ZapIcon } from "lucide-react";
 import { useState } from "react"
 
 const Banner = () => {
@@ -22,6 +22,11 @@ const Banner = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex-center gap-6">
                     <TruckIcon className="size-4 shrink-0" />
                     <span className="font-medium">Free delivery on orders above $20</span>
+                </div>
+                <span className="hidden sm:inline text-white/40">|</span>
+                <div className="hidden sm:flex items-center gap-2">
+                    <ZapIcon className="size-3.5 fill-yellow-400 text-yellow-400 shrink-0" />
+                    <span>Farm-fresh produce delivered daily</span>
                 </div>
             </div>
 
