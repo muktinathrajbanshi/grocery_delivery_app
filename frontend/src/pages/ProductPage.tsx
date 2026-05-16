@@ -133,6 +133,22 @@ const categoryLabel = product.category.replace(/-/g, " ");
                   line-through">{currency}{product.originalPrice.toFixed(2)}</span>
                 )}
               </div>
+
+              {/* Description  */}
+              <p className="text-sm text-app-text-light leading-relaxed
+              mb-6">{product.description}</p>
+
+              {/* stock  */}
+
+              <div className="mb-6">
+                {product.stock > 0 ? (
+                  <span className="text-sm text-app-success
+                  font-medium">✓ In Stock ({product.stock} available)</span>
+                ) : (
+                  <span className="text-sm text-app-error
+                  font-medium">Out of Stock</span>
+                )}
+              </div>
             </div>
 
           </div>
