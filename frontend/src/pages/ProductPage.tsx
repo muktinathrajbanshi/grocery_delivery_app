@@ -122,6 +122,17 @@ const categoryLabel = product.category.replace(/-/g, " ");
                   <span className="text-sm text-app-text-light">({product.reviewCount} reviews)</span>
                 </div>
               )}
+
+              {/* Price  */}
+              <div className="flex items-baseline gap-3 mb-5">
+                <span className="text-3xl md:text-4xl font-semibold
+                text-app-green">{currency}{product.price.toFixed(2)}</span>
+
+                {product.originalPrice > product.price && (
+                  <span className="text-lg text-app-text-light
+                  line-through">{currency}{product.originalPrice.toFixed(2)}</span>
+                )}
+              </div>
             </div>
 
           </div>
