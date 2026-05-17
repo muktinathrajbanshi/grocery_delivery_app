@@ -4,6 +4,9 @@ import type { Order } from "../types";
 import { dummyDashboardOrdersData } from "../assets/assets";
 import Loading from "../components/Loading";
 import { ArrowLeftIcon } from "lucide-react";
+import OrderOTP from "../components/OrderTracking/OrderOTP";
+import LiveMap from "../components/OrderTracking/LiveMap";
+import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
 
 
 const OrderTracking = () => {
@@ -48,6 +51,22 @@ const OrderTracking = () => {
               {order!.status}
           </span>
         </div>
+
+       <div className="grid lg:grid-cols-3 gap-6">
+        {/* Left site - Timeline + Map Area  */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* OTP Card  */}
+          <OrderOTP order={order} />
+          {/* Live Tracking Map  */}
+          <LiveMap order={order} liveLocation={liveLocation} />
+          {/* Progress Timeline  */}
+          <OrderTimeLine order={order} />
+
+        </div>
+
+        {/* Right side - Order Details  */}
+       </div>
+
       </div>
     </div>
   )
