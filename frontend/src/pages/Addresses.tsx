@@ -40,7 +40,7 @@ const Addresses = () => {
   }
 
   useEffect(() => {
-    setAddresses([])
+    setAddresses(dummyAddressData)
 
     setTimeout(() => {
       setLoading(false)
@@ -77,8 +77,10 @@ const Addresses = () => {
             <p className="text-sm text-app-text-light">Add an address for faster checkout</p>
           </div>
         ) : (
-          <div>
-            
+          <div className="space-y-4">
+            {addresses.map((add) => (
+              <div>{add.address}</div>
+            ))}
           </div>
         )
       }
