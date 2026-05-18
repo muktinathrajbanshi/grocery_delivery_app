@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import type { Address } from "../types"
 import { dummyAddressData } from "../assets/assets"
-import { PlusIcon } from "lucide-react"
+import { MapPinIcon, PlusIcon } from "lucide-react"
+import Loading from "../components/Loading"
 
 const Addresses = () => {
 
@@ -39,7 +40,7 @@ const Addresses = () => {
   }
 
   useEffect(() => {
-    setAddresses(dummyAddressData)
+    setAddresses([])
 
     setTimeout(() => {
       setLoading(false)
@@ -61,6 +62,27 @@ const Addresses = () => {
           <PlusIcon className="size-4" /> Add Address
         </button>
       </div>
+
+      {/* Form Modal  */}
+
+
+      {/* Address List  */}
+      {
+        loading ? (
+          <Loading />
+        ) : addresses.length === 0 ? (
+          <div className="text-center py-16">
+            <MapPinIcon className="size-16 text-app-border mx-auto mb-4" />
+            <h2 className="text-lg font-semibold text-app-green mb-2">No addresses saved</h2>
+            <p className="text-sm text-app-text-light">Add an address for faster checkout</p>
+          </div>
+        ) : (
+          <div>
+            
+          </div>
+        )
+      }
+
 
       </div>
     </div>
