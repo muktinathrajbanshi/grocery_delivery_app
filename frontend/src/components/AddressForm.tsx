@@ -25,6 +25,84 @@ const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId} : any) 
             </button>
         </div>
 
+        {/* form input fields  */}
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium
+            text-app-green mb-1.5">Label</label>
+            <input 
+            type="text" placeholder="Home, Work, etc." 
+            required 
+            value={form.address}
+            onChange={(e) => setForm({...form, address: e.target.value})}
+            className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
+            focus:border-app-green outline-none"/>
+          </div>
+          <div>
+            <label className="block text-sm font-medium
+            text-app-green mb-1.5">Street Address</label>
+            <input 
+            type="text" 
+            required 
+            value={form.address}
+            onChange={(e) => setForm({...form, label: e.target.value})}
+            className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
+            focus:border-app-green outline-none"/>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium
+              text-app-green mb-1.5">City</label>
+              <input 
+              type="text" 
+              required 
+              value={form.city}
+              onChange={(e) => setForm({...form, city: e.target.value})}
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
+              focus:border-app-green outline-none"/>
+           </div>
+           <div>
+              <label className="block text-sm font-medium
+              text-app-green mb-1.5">State</label>
+              <input 
+              type="text" 
+              required 
+              value={form.state}
+              onChange={(e) => setForm({...form, state: e.target.value})}
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
+              focus:border-app-green outline-none"/>
+           </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium
+              text-app-green mb-1.5">ZIP Code</label>
+              <input 
+              type="text" 
+              required 
+              value={form.zip}
+              onChange={(e) => setForm({...form, zip: e.target.value})}
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
+              focus:border-app-green outline-none"/>
+            </div>
+            <div className="flex items-end pb-1">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked={form.isDefault}
+                onChange={(e) => setForm({...form, isDefault: e.target.value})} />
+                <span className="text-sm text-app-text">Set as default</span>
+              </label>
+              
+            </div>
+          </div>
+
+        </div>
+
+        {/* submit button  */}
+        <button type="submit">
+          <div>
+          </div>
+        </button>
+
         </form>
       </div>
     </>
