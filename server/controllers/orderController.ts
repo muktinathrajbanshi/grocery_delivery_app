@@ -39,6 +39,43 @@ export const createOrder = async (req: Request, res: Response) => {
         }
     })
 
-    const subtotal = orderItems.reduce((sum: number, item: any) => sum + item.price * item.quantity)
+    const subtotal = orderItems.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0)
+
+    const deliveryFee = subtotal > 20 ? 0 : 1.99;
+    const tax = Math.round(subtotal * 0.08 * 100) / 100;
+    const total = Math.round((subtotal + deliveryFee + tax) * 100) / 100;
+
+    const order = await prisma.order.create({
+        data: {
+            userId: req.user!.id,
+            items: orderItems,
+            shippingAddress,
+            paymentMethod,
+            subtotal,
+            deliveryFee,
+            tax,
+            total,
+            statusHistory: [{status: "Placed", note: "Order placed successfully", timestamp: new Date()}]
+        }
+    })
+
+    if(paymentMethod === "card") {
+        // stripe payment link
+    }
+
+    res.json({order})
+
+    // Decrease stock
+    for(const item of orderItems) {
+        await prisma.product.update({
+            where: {id: item.product},
+            data: {stock: {decrement: item.quantity}}
+        })
+    }
+}
+
+// Get user's orders
+// GET /api/orders
+export const getUserOrders = async (req: Request, res: Response) => {
 
 }
