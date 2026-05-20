@@ -1,13 +1,16 @@
+import {User, DeliveryPartner } from "../../generated/prisma/client.ts";
 
 
-declare globlal {
+declare global {
     namespace Express {
         interface Request {
             user?: {
                 id: string,
                 isAdmin?: boolean;
             }
-            partner?: 
+            partner?: DeliveryPartner
         }
     }
 }
+
+export {};
