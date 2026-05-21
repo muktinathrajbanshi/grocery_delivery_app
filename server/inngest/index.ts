@@ -1,4 +1,4 @@
-import { Inngest } from "inngest";
+import { cron, Inngest } from "inngest";
 import { prisma } from "../config/prisma.js";
 import sendEmail from "../config/nodemailer.js";
 
@@ -58,5 +58,40 @@ const checkLowStock = inngest.createFunction(
     return {alerted: true, product: product.name, stock: product.stock}
   },
 );
+
+// Monthly Offers Email (1st of every month - payday)
+const sendMonthlyOffers = inngest.createFunction({
+    id: "send-monthly-offers",
+    name: "Monthly Payday Offers",
+    triggers: [cron("0 10 1 * *")]
+}, async ({step}) => {
+    const { deals, users } = await step.run("fetch-deals-and-users", async () => {
+        // Get top discounted products as featured deals
+        const products = await prisma.product.findMany({
+            where: {stock: {gt: 0}},
+            orderBy: { originalPrice: "desc" },
+            take: 6,
+        })
+
+        const allUsers = await prisma.user.findMany({select: {name: true, email: true}})
+        return {deals: products, users: allUsers}
+    })
+
+    if(users.length === 0 || deals.length === 0) {
+        return { skipped: true, reason: "No users or deals" };
+    }
+
+    let sentCount = 0;
+
+    // Send in batches of 10 to avoid overwhelming mail server
+    const batchSize = 10;
+    for (let i = 0; i<users.length; i += batchSize) {
+        const batch = users.slice(i, i + batchSize);
+
+        await step.run(`send-offers-batch-${i}`, async () => {
+            
+        })
+    }
+})
 
 export const functions = [checkLowStock];
