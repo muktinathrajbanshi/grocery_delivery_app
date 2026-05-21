@@ -72,4 +72,32 @@ export const updateAddress = async (req:Request, res: Response) => {
             data: {isDefault: false}
         })
     }
+
+    const data: any = {};
+
+    if (label) data.label = label;
+    if (address) data.address = address;
+    if (city) data.city = city;
+    if (state) data.state = state;
+    if (zip) data.zip = zip;
+    if (isDefault !== undefined) data.isDefault = isDefault;
+    if (lat !== undefined) data.isDefault = Number(lat);
+    if (lng !== undefined) data.isDefault = Number(lng);
+
+    try {
+        await prisma.address.update({
+            where: {id: req.params.id as string},
+            data,
+        })
+    } catch (error) {
+        return res.status(401).json({ message: "Address not found" });
+    }
+
+    const addresses = await prisma.address.findMany({
+        where: {userId: req.user!.id},
+        orderBy: { createdAt: "asc" }
+    })
+
+    res.json({addresses})
+
 }
