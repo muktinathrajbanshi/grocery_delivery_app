@@ -1,7 +1,5 @@
 import { createTransport } from "nodemailer";
 
-const nodemailer = require("nodemailer");
-
 // Create a transporter using SMTP
 const transporter = createTransport({
   host: "smtp-relay.brevo.com",
@@ -14,7 +12,7 @@ const transporter = createTransport({
 
 const sendEmail = async ({ to, subject, body }: {to: string, subject: string, body: string}) => {
     const response = await transporter.sendMail({
-        from: "",
+        from: process.env.SENDER_EMAIL,
         to,
         subject,
         html: body,
