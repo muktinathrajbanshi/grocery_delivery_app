@@ -14,7 +14,7 @@ const AddressCard = ({addr, onEditHandler, setAddresses} : AddressCardProps) => 
     }
 
   return (
-    <div key={addr._id} className="max-w-3xl bg-white rounded-2xl p-6 flex items-start
+    <div key={addr.id} className="max-w-3xl bg-white rounded-2xl p-6 flex items-start
     justify-between">
       {/* left  */}
       <div className="flex gap-4">
@@ -51,7 +51,7 @@ const AddressCard = ({addr, onEditHandler, setAddresses} : AddressCardProps) => 
         </button>
 
         <button 
-        onClick={() => handleDelete(addr._id)}
+        onClick={() => handleDelete(addr.id)}
         className="p-2 text-app-text-light
         hover:text-app-error hover:bg-red-50 rounded-lg
         transition-colors">

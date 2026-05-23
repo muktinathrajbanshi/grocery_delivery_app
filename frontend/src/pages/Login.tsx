@@ -2,6 +2,8 @@ import { useState } from "react"
 import { heroSectionData } from "../assets/assets"
 import { Link } from "react-router-dom"
 import { BikeIcon, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react"
+import { useAuth } from "../context/AuthContext"
+import toast from "react-hot-toast"
 
 const Login = () => {
 
@@ -11,11 +13,22 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
+  const {login, register} = useAuth()
 
   const handleSubmit = async (e: React.SubmitEvent) => {
       e.preventDefault()
       setLoading(true);
-      setTimeout(() => window.location.href = "/", 1000)
+      try {
+        if (isLoginState) {
+          await login(email, password)
+        } else {
+          await register(name, email, password)
+        }
+      } catch (error: any) {
+        toast.error(error.response?.data?.message || error?.message)
+      } finally {
+        setLoading(false)
+      }
   }
 
 
@@ -81,7 +94,7 @@ const Login = () => {
                     <input 
                     type="email" 
                     value={email} 
-                    onChange={(e) => setName(e.target.value)} 
+                    onChange={(e) => setEmail(e.target.value)} 
                     required 
                     placeholder="you@example.com"
                     className="w-full pl-11 pr-4 py-3 text-sm bg-white rounded-xl border
