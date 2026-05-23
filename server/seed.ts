@@ -361,7 +361,7 @@ const seedDB = async () => {
     ];
 
     await prisma.product.createMany({data: products})
-    console.log(`Cleared ${products.length} products`)
+    console.log(`Created ${products.length} products`)
 
     console.log("Seed completed successfully!")
     process.exit(0);
