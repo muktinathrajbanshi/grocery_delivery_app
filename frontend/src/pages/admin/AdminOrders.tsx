@@ -3,7 +3,6 @@ import { TruckIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import type { DeliveryPartner } from "../../types";
 import Loading from "../../components/Loading";
-import { dummyDeliveryPartnerData } from "../../assets/assets";
 import api from "../../config/api";
 
 export default function AdminOrders() {
@@ -56,8 +55,11 @@ export default function AdminOrders() {
        try {
             await api.put(`/admin/orders/${assignModal}/assign`, {partnerId: selectedPartner})
             toast.success("Delivery partner assigned!");
-       } catch (error) {
-        
+            setAssignModal(null);
+            setSelectedPartner("");
+            fetchOrders()
+       } catch (error: any) {
+            toast.error(error?.response?.data?.message || "Failed");
        }
     };
 
