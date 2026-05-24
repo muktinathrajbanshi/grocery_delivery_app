@@ -36,11 +36,17 @@ const OrderTracking = () => {
           })
         }
         // Also update order status if it changed
-        
-      } catch (error) {
+        if(data.status && data.status !== order.status) {
+          setOrder((prev) => prev ? {...prev, status: data.status} : prev)
+        }
+      } catch {
+
       }
     }
-  })
+    fetchLocation()
+    const interval = setInterval(fetchLocation, 10000)
+    return () => clearInterval(interval)
+  }, [id, order?.status])
 
   if(loading) return <Loading />
   if(!order) null
