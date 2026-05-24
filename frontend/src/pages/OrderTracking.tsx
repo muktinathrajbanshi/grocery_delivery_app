@@ -22,8 +22,28 @@ const OrderTracking = () => {
     api.get(`/orders/${id}`).then((res) => setOrder(res.data.order)).catch(() => navigate("/orders")).finally(() => setLoading(false))
   }, [id, navigate])
 
+  // live location every 10 seconds
+  useEffect(() => {
+    if(!order || ["Delivered", "Cancelled", "Placed"].includes(order.status)) return;
+
+    const fetchLocation = async () => {
+      try {
+        const { data } = await api.get(`/orders/${id}/location`)
+        if(data.liveLocation?.lat && data.liveLocation?.lng && data.liveLocation.updatedAt) {
+          setLiveLocation({
+            lat: data.liveLocation.lat,
+            lng: data.liveLocation.lng
+          })
+        }
+        // Also update order status if it changed
+        
+      } catch (error) {
+      }
+    }
+  })
+
   if(loading) return <Loading />
-  if(!order) return null
+  if(!order) null
 
 
   return (
