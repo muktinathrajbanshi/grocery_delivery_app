@@ -23,7 +23,7 @@ const OrderTracking = () => {
   }, [id, navigate])
 
   if(loading) return <Loading />
-  if(!order) null
+  if(!order) return null
 
 
   return (
@@ -131,7 +131,7 @@ const OrderTracking = () => {
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-app-text-light">Subtotal</span>
+                    <span className="text-app-text-light">Delivery</span>
                     <span>{order?.deliveryFee === 0
                       ? "Free"
                       : `${currency}${order?.deliveryFee.toFixed(2)}`}</span>
