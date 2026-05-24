@@ -33,10 +33,10 @@ const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId} : any) 
             <input 
             type="text" placeholder="Home, Work, etc." 
             required 
-            value={form.address}
-            onChange={(e) => setForm({...form, address: e.target.value})}
+            value={form.label}
+            onChange={(e) => setForm({...form, label: e.target.value})}
             className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
-            focus:border-app-green outline-none"/>
+            focus:border-app-green outline-none"/> 
           </div>
           <div>
             <label className="block text-sm font-medium
@@ -45,7 +45,7 @@ const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId} : any) 
             type="text" 
             required 
             value={form.address}
-            onChange={(e) => setForm({...form, label: e.target.value})}
+            onChange={(e) => setForm({...form, address: e.target.value})}
             className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border
             focus:border-app-green outline-none"/>
           </div>

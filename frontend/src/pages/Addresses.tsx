@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import type { Address } from "../types"
-import { dummyAddressData } from "../assets/assets"
 import { MapPinIcon, PlusIcon } from "lucide-react"
 import Loading from "../components/Loading"
 import AddressCard from "../components/AddressCard"
@@ -78,10 +77,13 @@ const Addresses = () => {
         toast.success("Address updated!")
       } else {
         const { data } = await api.post(`/addresses`, payload);
-
+        setAddresses(data.addresses)
+        updateUser({addresses: data.addresses})
+        toast.success("Address added!")
       }
-    } catch (error) {
-      
+      resetForm()
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || error.message || "Failed");
     }
   }
 
@@ -97,11 +99,13 @@ const Addresses = () => {
   }
 
   useEffect(() => {
-    setAddresses(dummyAddressData)
-
-    setTimeout(() => {
+    api.get("/addresses").then(({ data }) => {
+      setAddresses(data.addresses)
+    }).catch((error: any) => {
+      toast.error(error.response?.data?.message || error?.message)
+    }).finally(() => {
       setLoading(false)
-    }, 1000)
+    })
   }, [])
                                 
  
