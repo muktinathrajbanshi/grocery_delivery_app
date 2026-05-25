@@ -20,6 +20,7 @@ export default function AdminOrders() {
         try {
             const { data } = await api.get("/orders/all")
             setOrders(data.orders)
+            console.log(data.orders)
         } catch (error: any) {
             toast.error(error.response?.data?.message || "Failed to load orders")
         } finally {
