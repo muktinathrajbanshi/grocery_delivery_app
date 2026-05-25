@@ -16,6 +16,7 @@ export default function AdminOrders() {
     const [selectedPartner, setSelectedPartner] = useState("");
 
     const fetchOrders = async () => {
+        setLoading(true)
         try {
             const { data } = await api.get("/orders/all")
             setOrders(data.orders)
@@ -30,8 +31,8 @@ export default function AdminOrders() {
         try {
             const {data} = await api.get("/admin/delivery-partners")
             setPartners(data.partners.filter((p: DeliveryPartner) => p.isActive))
-        } catch {
-            
+        } catch (error: any){
+            toast.error(error.response?.data?.message || "Failed to load partners");
         }
     };
 
